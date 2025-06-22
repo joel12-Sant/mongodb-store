@@ -1,15 +1,15 @@
-<?php require 'db.php'; ?>
+<?php require 'db.php'; ?> 
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Lista de Estudiantes</title>
+  <title>Lista de Playeras</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="container mt-4">
-  <h1>Estudiantes</h1>
+  <h1>Inventario de Playeras</h1>
 
-  <!-- Formulario de búsqueda -->
+  <!-- Formularios de búsqueda -->
   <div class="row mb-4">
     <div class="col-md-6">
       <form method="GET" class="d-flex">
@@ -19,40 +19,40 @@
     </div>
     <div class="col-md-6">
       <form method="GET" class="d-flex">
-        <input type="text" name="buscar_grupo" class="form-control me-2" placeholder="Buscar por grupo" value="<?= $_GET['buscar_grupo'] ?? '' ?>">
+        <input type="number" step="0.01" name="buscar_precio" class="form-control me-2" placeholder="Buscar por precio" value="<?= $_GET['buscar_precio'] ?? '' ?>">
         <button class="btn btn-outline-secondary" type="submit">Buscar</button>
       </form>
     </div>
   </div>
 
-  <a href="create.php" class="btn btn-primary mb-3">Agregar estudiante</a>
+  <a href="create.php" class="btn btn-primary mb-3">Agregar Playera</a>
   <table class="table table-bordered">
     <thead>
-      <tr><th>ID</th><th>Nombre</th><th>Grupo</th><th>Fecha Nac</th><th>Acciones</th></tr>
+      <tr><th>ID</th><th>Nombre</th><th>Precio</th><th>Descripción</th><th>Acciones</th></tr>
     </thead>
     <tbody>
       <?php
         $filtro = [];
 
         if (!empty($_GET['buscar_nombre'])) {
-          $filtro['nombre'] = ['$regex' => $_GET['buscar_nombre'], '$options' => 'i']; // búsqueda insensible a mayúsculas
+          $filtro['nombre'] = ['$regex' => $_GET['buscar_nombre'], '$options' => 'i'];
         }
 
-        if (!empty($_GET['buscar_grupo'])) {
-          $filtro['grupo'] = $_GET['buscar_grupo'];
+        if (!empty($_GET['buscar_precio'])) {
+          $filtro['precio'] = (float)$_GET['buscar_precio'];
         }
 
-        $estudiantes = $coleccion->find($filtro);
+        $playeras = $coleccion->find($filtro);
 
-        foreach ($estudiantes as $e) {
+        foreach ($playeras as $p) {
           echo "<tr>
-                  <td>{$e['id']}</td>
-                  <td>{$e['nombre']}</td>
-                  <td>{$e['grupo']}</td>
-                  <td>" . date('Y-m-d', $e['f_nac']->toDateTime()->getTimestamp()) . "</td>
+                  <td>{$p['id']}</td>
+                  <td>{$p['nombre']}</td>
+                  <td>\${$p['precio']}</td>
+                  <td>{$p['descripcion']}</td>
                   <td>
-                    <a href='update.php?id={$e['id']}' class='btn btn-warning btn-sm'>Editar</a>
-                    <a href='delete.php?id={$e['id']}' class='btn btn-danger btn-sm'>Eliminar</a>
+                    <a href='update.php?id={$p['id']}' class='btn btn-warning btn-sm'>Editar</a>
+                    <a href='delete.php?id={$p['id']}' class='btn btn-danger btn-sm'>Eliminar</a>
                   </td>
                 </tr>";
         }

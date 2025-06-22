@@ -1,7 +1,17 @@
 <?php
 require 'db.php';
 
-$id = (int)$_GET['id'];
-$coleccion->deleteOne(['id' => $id]);
-header("Location: index.php");
+if (isset($_GET['id'])) {
+    $id = (int)$_GET['id'];
+
+    $imagenRuta = __DIR__ . "/img/{$id}.jpg";
+    if (file_exists($imagenRuta)) {
+        unlink($imagenRuta);
+    }
+
+    $coleccion->deleteOne(['id' => $id]);
+}
+
+header("Location: find.php");
 exit();
+?>
