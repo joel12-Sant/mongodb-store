@@ -2,32 +2,51 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Lista de Estudiantes</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FrontEnd Store</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Staatliches&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body class="container mt-4">
-  <h1>Estudiantes</h1>
-  <a href="create.php" class="btn btn-primary mb-3">Agregar estudiante</a>
-  <table class="table table-bordered">
-    <thead><tr><th>ID</th><th>Nombre</th><th>Grupo</th><th>Fecha Nac</th><th>Acciones</th></tr></thead>
-    <tbody>
-      <?php
-        $estudiantes = $coleccion->find();
-        foreach ($estudiantes as $e) {
-          echo "<tr>
-                  <td>{$e['id']}</td>
-                  <td>{$e['nombre']}</td>
-                  <td>{$e['grupo']}</td>
-                  <td>" . date('Y-m-d', $e['f_nac']->toDateTime()->getTimestamp()) . "</td>
-                  <td>
-                    <a href='update.php?id={$e['id']}' class='btn btn-warning btn-sm'>Editar</a>
-                    <a href='delete.php?id={$e['id']}' class='btn btn-danger btn-sm'>Eliminar</a>
-                  </td>
-                </tr>";
-        }
-      ?>
-    </tbody>
-  </table>
+<body>
+    <header class="header">
+        <a href="index.php">
+            <img class="header__logo" src="img/logo.png" alt="Logotipo" />
+        </a>
+    </header>
+
+    <nav class="navegacion">
+        <a class="navegacion__enlace navegacion__enlace--activo" href="index.php">Tienda</a>
+        <a class="navegacion__enlace" href="nosotros.php">Nosotros</a>
+    </nav>
+
+    <main>
+        <h1>Nuestros Productos</h1>
+        <div class="grid">
+            <?php
+                $playeras = $coleccion->find();
+                foreach ($playeras as $p):
+            ?>
+                <div class="producto">
+                    <a href="producto.php?id=<?= htmlspecialchars($p['_id']) ?>">
+                        <img class="producto__imagen" src="img/<?= htmlspecialchars($p['imagen']) ?>" alt="Imagen <?= htmlspecialchars($p['nombre']) ?>" />
+                        <div class="producto__informacion">
+                            <p class="producto__nombre"><?= htmlspecialchars($p['nombre']) ?></p>
+                            <p class="producto__precio">$<?= htmlspecialchars($p['precio']) ?></p>
+                        </div>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+            <div class="grafico grafico--camisas"></div>
+            <div class="grafico grafico--node"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p class="footer__texto">FrontEnd Store - Todos los derechos reservado 2024.</p>
+    </footer>
 </body>
 </html>
