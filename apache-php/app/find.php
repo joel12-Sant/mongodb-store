@@ -1,4 +1,12 @@
-<?php require 'db.php'; ?> 
+<?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    header("Location: login.php");
+    exit;
+}
+
+require 'db.php'; 
+?> 
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,6 +34,7 @@
   </div>
 
   <a href="create.php" class="btn btn-primary mb-3">Agregar Playera</a>
+
   <table class="table table-bordered">
     <thead>
       <tr><th>ID</th><th>Nombre</th><th>Precio</th><th>Descripción</th><th>Acciones</th></tr>
@@ -59,5 +68,6 @@
       ?>
     </tbody>
   </table>
+  <a href="logout.php" class="btn btn-primary mb-3">Cerrar sesión</a>
 </body>
 </html>
