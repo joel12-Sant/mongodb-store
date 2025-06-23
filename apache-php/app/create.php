@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'precio' => (float)$_POST['precio'],
         'cantidad' => (int)$_POST['cantidad'],
         'descripcion' => $_POST['descripcion'],
-        'imagen' => $imagenNombre
+        'imagen' => $nuevoNombre
     ];
 
     $coleccion->insertOne($nuevaPlayera);

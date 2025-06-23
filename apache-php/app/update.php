@@ -4,14 +4,47 @@ require 'db.php';
 $id = (int)$_GET['id'];
 $playera = $coleccion->findOne(['id' => $id]);
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+function getNextImageName($dir = 'img/') {
+    $files = scandir($dir);
+    $numbers = [];
+
+    foreach ($files as $file) {
+        if (preg_match('/^(\d+)\.jpg$/', $file, $matches)) {
+            $numbers[] = (int)$matches[1];
+        }
+    }
+
+    $next = empty($numbers) ? 1 : max($numbers) + 1;
+    return "$next.jpg";
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nuevaImagen = $playera['imagen']; // Por defecto, mantiene la imagen actual
+
+    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+        
+        // Borrar la imagen anterior
+        $rutaAnterior = 'img/' . $playera['imagen'];
+        if (file_exists($rutaAnterior)) {
+            unlink($rutaAnterior);
+        }
+      
+        // Subió nueva imagen
+        $nuevoNombre = getNextImageName();
+        $rutaDestino = 'img/' . $nuevoNombre;
+        move_uploaded_file($_FILES['imagen']['tmp_name'], $rutaDestino);
+        $nuevaImagen = $nuevoNombre;
+
+    }
+
     $coleccion->updateOne(
         ['id' => $id],
         ['$set' => [
             'nombre' => $_POST['nombre'],
             'precio' => (float)$_POST['precio'],
             'descripcion' => $_POST['descripcion'],
-            'cantidad' => (int)$_POST['cantidad']
+            'cantidad' => (int)$_POST['cantidad'],
+            'imagen' => $nuevaImagen
         ]]
     );
     header("Location: find.php");
@@ -28,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body class="container mt-4">
   <h1>Editar Playera</h1>
-  <form method="POST">
+  <form method="POST" enctype="multipart/form-data">
     <div class="mb-3">
       <label class="form-label">Nombre</label>
       <input type="text" name="nombre" class="form-control" value="<?= $playera['nombre'] ?>" required>
@@ -44,6 +77,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="mb-3">
       <label class="form-label">Cantidad</label>
       <input type="number" name="cantidad" class="form-control" value="<?= $playera['cantidad'] ?>" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Imagen actual</label><br>
+      <img src="img/<?= htmlspecialchars($playera['imagen']) ?>" alt="Imagen actual" width="150">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Nueva Imagen (opcional)</label>
+      <input type="file" name="imagen" accept=".jpg" class="form-control">
     </div>
     <button type="submit" class="btn btn-primary">Actualizar</button>
     <a href="index.php" class="btn btn-secondary">Cancelar</a>
