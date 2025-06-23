@@ -15,6 +15,11 @@ function getNextImageName($dir = 'img/') {
     return "$next.jpg";
 }
 
+function getNextId($coleccion) {
+    $ultimo = $coleccion->findOne([], ['sort' => ['id' => -1]]);
+    return $ultimo ? $ultimo['id'] + 1 : 1;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imagenNombre = '';
 
@@ -26,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $nuevaPlayera = [
-        'id' => (int)$_POST['id'],
+        'id' => getNextId($coleccion),
         'nombre' => $_POST['nombre'],
         'precio' => (float)$_POST['precio'],
         'cantidad' => (int)$_POST['cantidad'],
@@ -40,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -50,10 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="container mt-4">
   <h1>Agregar Nueva Playera</h1>
   <form method="POST" enctype="multipart/form-data">
-    <div class="mb-3">
-      <label class="form-label">ID</label>
-      <input type="number" name="id" class="form-control" required>
-    </div>
     <div class="mb-3">
       <label class="form-label">Nombre</label>
       <input type="text" name="nombre" class="form-control" required>
