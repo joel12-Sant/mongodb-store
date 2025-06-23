@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <input type="file" name="imagen" accept=".jpg" class="form-control">
     </div>
     <button type="submit" class="btn btn-primary">Actualizar</button>
-    <a href="index.php" class="btn btn-secondary">Cancelar</a>
+    <a href="find.php" class="btn btn-secondary">Cancelar</a>
   </form>
 </body>
 </html>
