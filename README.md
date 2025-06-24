@@ -5,7 +5,7 @@ Este proyecto es una tienda en línea simple que permite gestionar playeras (cam
 
 - PHP (sin frameworks)
 - MongoDB
-- Docker (opcional)
+- Docker
 - HTML + CSS (con Bootstrap y estilos personalizados)
 - CRUD completo: Crear, Leer, Actualizar y Eliminar productos
 
@@ -36,20 +36,16 @@ Este proyecto es una tienda en línea simple que permite gestionar playeras (cam
 
 ## Requisitos
 
-- PHP 7.4 o superior
-- MongoDB (local o en Docker)
-- Extensión php-mongodb instalada
-- Navegador web moderno
+- solo se requiere tener instaldo docker en su dispositivo y descargar el zip de este repositorio o clonarlo en su dispositivo
 
 ---
 
 ## Uso
 
-1. Ejecuta MongoDB
-2. Inicia el servidor local con PHP:
-   php -S localhost:8000
-3. Abre en navegador: http://localhost:8000
-4. Ve a login.php y entra con:
+1. Ejecuta el comando: ```docker compose up --build ```
+2. Abre en navegador: http://localhost:8080 para acceder al apartado de tienda
+3. Para acceder al panel de administracion, ve a http://localhost:8080/find.php
+4. Logeate con:
    - Usuario: admin
    - Contraseña: 1234
 
@@ -60,15 +56,6 @@ Este proyecto es una tienda en línea simple que permite gestionar playeras (cam
 - Contraseñas con password_hash y password_verify
 - Archivos de administración protegidos por sesión
 - Control de tipo de archivo al subir imágenes
-
----
-
-## Mejoras posibles
-
-- Guardar usuarios en MongoDB
-- Agregar buscador en find.php
-- Soporte a más tipos de imagen (PNG, WebP)
-- Mejorar diseño responsivo
 
 ---
 
