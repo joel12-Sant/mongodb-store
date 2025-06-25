@@ -1,17 +1,51 @@
 <?php
+session_start();
 require 'db.php'; 
 
 if (!isset($_GET['id'])) {
     die("Producto no especificado.");
 }
-$id = new MongoDB\BSON\ObjectId($_GET['id']);
 
-$playera = $coleccion->findOne(['_id' => $id]);
+try {
+    $id = new MongoDB\BSON\ObjectId($_GET['id']);
+    $playera = $coleccion->findOne(['_id' => $id]);
 
-if (!$playera) {
-    die("Producto no encontrado.");
+    if (!$playera) {
+        die("Producto no encontrado.");
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (!isset($_SESSION['usuario_id'])) {
+            $_SESSION['redirect_to'] = 'producto.php?id=' . $_GET['id'];
+            header("Location: login.php");
+            exit;
+        }
+
+        $talla = $_POST['talla'] ?? '';
+        $cantidad = intval($_POST['cantidad'] ?? 1);
+
+        if (empty($talla)) {
+            $error = "Debes seleccionar una talla";
+        } elseif ($cantidad < 1 || $cantidad > $playera['cantidad']) {
+            $error = "Sin stock";
+        } else {
+            // Preparar datos para add-carrito.php
+            $_SESSION['add_to_cart'] = [
+                'producto_id' => (string)$_GET['id'],
+                'talla' => $talla,
+                'cantidad' => $cantidad
+            ];
+            header("Location: add-carrito.php");
+            exit;
+        }
+    }
+} catch (Exception $e) {
+    die("Error al procesar el producto: " . $e->getMessage());
 }
 ?>
+
+<!DOCTYPE html>
+<!-- ... (Mantén todo el HTML visual igual) ... -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -39,6 +73,10 @@ if (!$playera) {
     <main class="contenedor"> 
         <h1><?= htmlspecialchars($playera['nombre']) ?></h1>
         
+        <?php if (isset($error)): ?>
+            <div class="error-mensaje"><?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
+        
         <div class="camisa">
             <img class="camisa__imagen" src="img/<?= htmlspecialchars($playera['imagen']) ?>" alt="imagen del producto" />
             <div class="camisa__contenido">
@@ -46,14 +84,14 @@ if (!$playera) {
                     <?= htmlspecialchars($playera['descripcion']) ?>
                 </p>
                 
-                <form class="formulario" action="">
-                    <select class="formulario__campo" name="talla" id="talla">
-                        <option selected disabled>--Seleccionar talla--</option>
-                        <option>Chica</option>
-                        <option>Mediana</option>
-                        <option>Grande</option>
+                <form class="formulario" method="POST">
+                    <select class="formulario__campo" name="talla" id="talla" required>
+                        <option value="" selected disabled>--Seleccionar talla--</option>
+                        <option value="Chica">Chica</option>
+                        <option value="Mediana">Mediana</option>
+                        <option value="Grande">Grande</option>
                     </select>
-                    <input class="formulario__campo" type="number" name="cantidad" placeholder="Cantidad" min="1" max="<?= $playera['cantidad'] ?>">
+                    <input class="formulario__campo" type="number" name="cantidad" placeholder="Cantidad" max="<?= $playera['cantidad'] ?>">
                     <input class="formulario__submit" type="submit" value="Agregar al carrito">
                 </form>
             </div>

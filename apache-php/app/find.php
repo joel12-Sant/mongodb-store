@@ -35,8 +35,10 @@ require 'db.php';
     </div>
   </div>
 
-  <a href="create.php" class="btn btn-primary mb-3">Agregar Playera</a>
-
+  <div class="botons-table-agregar">
+    <a href="create.php" class="btn btn-primary mb-3">Agregar Playera</a>
+    <a href="index.php" class="btn btn-primary mb-3">Ver Tienda</a>
+  </div>
   <table class="table table-bordered">
     <thead>
       <tr><th>ID</th><th>Nombre</th><th>Precio</th><th>Descripción</th><th>Acciones</th></tr>

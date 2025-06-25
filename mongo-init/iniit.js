@@ -133,4 +133,15 @@ db.usuarios.insertMany([
   }
 ]);
 
+db.carritos.insertOne({
+  usuario_id: ObjectId,
+  items: [
+    {
+      producto_id: ObjectId,
+      cantidad: 2,
+      talla: "chica"
+    }
+  ]
+})
+
 

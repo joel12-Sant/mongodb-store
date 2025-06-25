@@ -2,7 +2,7 @@
     --primario: #9c27b0;
     --primarioOscuro: #89119d;
     --secunadario: #ffce00;
-    --secundarioOscuro: rgb(233,287,2);
+    --secundarioOscuro: rgb(233,287,1);
     --blanco: #fff;
     --negro: #000; 
     
@@ -332,4 +332,191 @@ h3{font-size: 2.4rem;}
 }
 .form-enlace:hover{
     color: var(--secunadario);
+}
+/*Carrito */
+/* Contenedor principal de cada item del carrito */
+.carrito-item {
+    padding: 1rem;
+    margin: 1rem 0;
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    background-color: var(--primarioOscuro);
+    gap: 1rem;
+    align-items: center;
+    border-radius: 8px;
+    color: white;
+    overflow: hidden; /* Evita que el contenido se desborde */
+    min-height: 150px; /* Altura mínima en lugar de fija */
+}
+
+/* Contenedor de la imagen */
+.carrito-item-img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.carrito-item-img img {
+    max-width: 100%;
+    max-height: 140px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+.carrito-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    overflow: auto; 
+    max-height: 140px; 
+}
+.carrito-item-info h3 {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.carrito-item-info p {
+    margin: 0;
+    font-size: 1.2rem;
+    line-height: 1.4;
+}
+.carrito-item-info .precio {
+    font-weight: bold;
+    color: var(--blanco);
+}
+.carrito-item-info .cantidad {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+@media (max-width: 768px) {
+    .carrito-item {
+        grid-template-columns: 100px 1fr;
+        min-height: auto;
+    }
+    
+    .carrito-item-img img {
+        max-height: 100px;
+    }
+    
+    .carrito-item-info {
+        max-height: none;
+        overflow: visible;
+    }
+}
+.carrito-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+.carrito-total {
+    display: grid;
+    grid-template-columns: 2;
+}
+
+/*Manejo de lob botons en index.php*/
+.left-buttons {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+}
+
+.right-buttons {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+    z-index: 100;
+}
+
+.admin-button {
+    background: var(--secunadario);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-family: 'Krub', sans-serif;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.admin-button:hover {
+    background: var(--secundarioOscuro);
+    transform: translateY(-2px);
+}
+
+/* Estilos para el botón de auth (login/logout) */
+.auth-button {
+    display: inline-block;
+    background: #e1e1e1;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-family: 'Krub', sans-serif;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.auth-button:hover {
+    background: #d1d1d1;
+    transform: translateY(-2px);
+}
+
+/* Estilos para el carrito */
+.carrito-link {
+    display: flex;
+    align-items: center;
+    background: var(--secunadario);
+    border-radius: 30px;
+    padding: 5px 11px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: #333;
+    overflow: hidden;
+    width: 50px;
+    height: 50px;
+}
+
+.carrito-link:hover {
+    width: 180px;
+    justify-content: center;
+}
+
+.carrito-texto {
+    white-space: nowrap;
+    margin-left: 10px;
+    font-family: 'Krub', sans-serif;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.2s ease 0.1s;
+    flex-shrink: 0;
+}
+
+.carrito-link:hover .carrito-texto {
+    opacity: 1;
+}
+
+.carrito-emoji {
+    font-size: 1.8rem;
+    width: 30px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.header {
+    position: relative;
+    min-height: 80px;
 }

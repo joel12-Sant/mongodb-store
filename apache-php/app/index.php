@@ -1,4 +1,6 @@
-<?php require 'db.php'; ?>
+<?php require 'db.php'; 
+session_start(); 
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,11 +15,33 @@
 </head>
 <body>
     <header class="header">
-        <a href="index.php">
+        <!-- Botón Admin (izquierda) -->
+        <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
+            <div class="left-buttons">
+                <a href='find.php' class="admin-button">Administrar Productos</a>
+            </div>
+        <?php endif; ?>
+        
+        <!-- Logo (centrado) -->
+        <a href="index.php" style="display: block; text-align: center;">
             <img class="header__logo" src="img/logo.png" alt="Logotipo" />
         </a>
+        
+        <!-- Botones Login/Carrito (derecha) -->
+        <div class="right-buttons">
+            <?php if(isset($_SESSION['usuario_id'])): ?>
+                <a href="logout.php" class="auth-button">Cerrar Sesión</a>
+            <?php else: ?>
+                <a href="login.php" class="auth-button">Iniciar Sesión</a>
+            <?php endif; ?>
+            <a href='carrito.php' class="carrito-link">
+                <span class="carrito-emoji">🛒</span>
+                <span class="carrito-texto">Ver Carrito</span>
+            </a>
+        </div>
     </header>
 
+    <!-- Resto de tu código HTML permanece igual -->
     <nav class="navegacion">
         <a class="navegacion__enlace navegacion__enlace--activo" href="index.php">Tienda</a>
         <a class="navegacion__enlace" href="nosotros.php">Nosotros</a>

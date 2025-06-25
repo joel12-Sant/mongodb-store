@@ -1,0 +1,14 @@
+=== INICIO DE PROCESO ===
+Datos recibidos:
+UsuarioID: 685c42a9cf277b46a50aebc2
+ProductoID: 685
+Cantidad: 3
+Talla: MEDIANA
+ERROR: Producto con ID 685 no encontrado
+=== INICIO DE PROCESO ===
+Datos recibidos:
+UsuarioID: 685c42a9cf277b46a50aebc2
+ProductoID: 685
+Cantidad: 2
+Talla: GRANDE
+ERROR: Producto con ID 685 no encontrado
