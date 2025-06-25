@@ -17,7 +17,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         header("Location: find.php");
         exit;
-    } else {
+    } elseif ($usuario && $usuario['rol'] === 'cliente' && password_verify($password, $usuario['password'])) {
+        $_SESSION['usuario_id'] = (string) $usuario['_id'];
+        $_SESSION['rol'] = $usuario['rol'];
+        $_SESSION['nombre'] = $usuario['nombre'];
+
+        header("Location: index.php");
+        exit;
+    }else{
         $error = "Usuario o contraseña incorrectos, o no tienes permisos de administrador.";
     }
 }
@@ -56,6 +63,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             
             <button type="submit" class="login-button">Log in</button>
+
+            <a href="s"></a>
+
+            <p style="text-align: center; margin-top: 10px;">
+            ¿Aun no eres usuario? <a href="sign-in.php" class="form-enlace">Registrate aqui</a>
+            </p>
         </form>
     </div>
 </body>
