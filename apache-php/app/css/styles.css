@@ -489,6 +489,7 @@ h3{font-size: 2.4rem;}
 
 .carrito-link:hover {
     width: 130px;
+    background-color: var(--secundarioOscuro);
     padding-right: 0;
 }
 
