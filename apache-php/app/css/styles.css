@@ -439,39 +439,36 @@ h3{font-size: 2.4rem;}
 
 .admin-button {
     background: var(--secunadario);
-    color: white;
+    color: var(--negro);
     padding: 10px 15px;
     border-radius: 5px;
     text-decoration: none;
-    font-family: 'Krub', sans-serif;
+    font-family: var(--fuentePrincipal);
     font-weight: 500;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
     display: inline-block;
 }
 
 .admin-button:hover {
     background: var(--secundarioOscuro);
-    transform: translateY(-2px);
 }
 
 /* Estilos para el botón de auth (login/logout) */
 .auth-button {
     display: inline-block;
-    background: #e1e1e1;
-    color: #333;
+    background: var(--secunadario);
+    color: var(--negro);
     padding: 10px 15px;
-    border-radius: 5px;
     text-decoration: none;
-    font-family: 'Krub', sans-serif;
+    font-family: var(--fuentePrincipal);
     font-weight: 500;
-    transition: all 0.3s ease;
+    
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .auth-button:hover {
-    background: #d1d1d1;
-    transform: translateY(-2px);
+    background: var(--secundarioOscuro);
+    
 }
 
 /* Estilos para el carrito */
@@ -479,30 +476,30 @@ h3{font-size: 2.4rem;}
     display: flex;
     align-items: center;
     background: var(--secunadario);
+    font-family: var(--fuentePrincipal);
     border-radius: 30px;
     padding: 5px 11px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.15);
     transition: all 0.3s ease;
     text-decoration: none;
-    color: #333;
     overflow: hidden;
     width: 50px;
     height: 50px;
 }
 
 .carrito-link:hover {
-    width: 180px;
-    justify-content: center;
+    width: 130px;
+    padding-right: 0;
 }
 
 .carrito-texto {
     white-space: nowrap;
     margin-left: 10px;
-    font-family: 'Krub', sans-serif;
     font-weight: 500;
     opacity: 0;
     transition: opacity 0.2s ease 0.1s;
     flex-shrink: 0;
+    color: var(--negro);
 }
 
 .carrito-link:hover .carrito-texto {
