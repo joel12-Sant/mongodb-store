@@ -1,12 +1,12 @@
 <?php
 session_start();
-if (!isset($_SESSION['usuario'])) {
+
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
     header("Location: login.php");
     exit;
 }
 
-require 'db.php';
-
+require 'db.php'; 
 function getNextImageName($dir = 'img/') {
     $files = scandir($dir);
     $numbers = [];
@@ -56,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agregar Playera</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -83,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <input type="file" name="imagen" accept=".jpg" class="form-control" required>
     </div>
     <button type="submit" class="btn btn-success">Guardar</button>
-    <a href="index.php" class="btn btn-secondary">Cancelar</a>
+    <a href="find.php" class="btn btn-secondary">Cancelar</a>
   </form>
 </body>
 </html>
