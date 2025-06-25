@@ -1,42 +1,62 @@
 <?php
 session_start();
+require 'db.php'; // Asegúrate de que define $cliente y $bd
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $usuario = $_POST['usuario'];
+    $correo = $_POST['correo']; // campo "usuario" es en realidad el correo
     $password = $_POST['password'];
 
-    $usuarioValido = 'admin';
-    $hashGuardado = '$2y$10$uq/g.lnNidYM92Wg/tCMJuFOvramsZhfXUis3cj5xxawVhq5RXqwC';
-    if ($usuario === $usuarioValido && password_verify($password, $hashGuardado)) {
-        $_SESSION['usuario'] = $usuario;
+    // Buscar usuario en la colección 'usuarios'
+    $usuarios = $bd->usuarios;
+    $usuario = $usuarios->findOne(['correo' => $correo]);
+
+    if ($usuario && $usuario['rol'] === 'admin' && password_verify($password, $usuario['password'])) {
+        $_SESSION['usuario_id'] = (string) $usuario['_id'];
+        $_SESSION['rol'] = $usuario['rol'];
+        $_SESSION['nombre'] = $usuario['nombre'];
+
         header("Location: find.php");
         exit;
     } else {
-        $error = "Usuario o contraseña incorrectos.";
+        $error = "Usuario o contraseña incorrectos, o no tienes permisos de administrador.";
     }
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Login</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - FrontEnd Store</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Staatliches&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/styles.css?v=<?php echo time(); ?>">
 </head>
-<body class="container mt-5">
-  <h2>Iniciar Sesión</h2>
-  <?php if (isset($error)) echo "<div class='alert alert-danger'>$error</div>"; ?>
-  <form method="POST">
-    <div class="mb-3">
-      <label>Usuario</label>
-      <input type="text" name="usuario" class="form-control" required>
+<body class="login-page">
+    <div class="login-container">
+        <h1 class="login-title">LOG IN</h1>
+        
+        <?php if (isset($error)): ?>
+            <div class="error-message"><?php echo $error; ?></div>
+        <?php endif; ?>
+        
+        <form class="login-form" method="POST">
+            <div class="form-group">
+                <label for="usuario">Email</label>
+                <input type="email" id="correo" name="correo" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <button type="submit" class="login-button">Log in</button>
+        </form>
     </div>
-    <div class="mb-3">
-      <label>Contraseña</label>
-      <input type="password" name="password" class="form-control" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Entrar</button>
-  </form>
 </body>
 </html>

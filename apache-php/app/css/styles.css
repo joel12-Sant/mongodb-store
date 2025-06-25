@@ -138,6 +138,11 @@ h3{font-size: 2.4rem;}
     background-image: url(../img/grafico2.jpg);
     grid-row: 8 / 9;
 }
+.grafico--siss{
+    background-image: url(../img/grafico1.jpg);
+    grid-row: 12 / 13;
+}
+
 @media (min-width: 768px){
     .grafico--node{
         grid-row: 5 / 6;
@@ -245,5 +250,83 @@ h3{font-size: 2.4rem;}
     cursor: pointer;
     background-color: var(--secundarioOscuro);
 }
+.login-container {
+    background-color: var(--primarioOscuro);
+    padding: 3rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    margin: 5rem auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.login-title {
+    color: var(--secunadario);
+    font-family: var(--fuentePrincipal);
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.login-form label {
+    display: block;
+    color: var(--blanco);
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.login-form input {
+    width: 100%;
+    padding: 1.2rem;
+    font-size: 1.6rem;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--blanco);
+    font-family: Arial, Helvetica, sans-serif;
+}
+.login-button {
+    width: 100%;
+    padding: 1.5rem;
+    background-color: var(--secunadario);
+    color: var(--negro);
+    border: none;
+    border-radius: 4px;
+    font-family: var(--fuentePrincipal);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 1rem;
+}
 
- 
+.login-button:hover {
+    background-color: var(--secundarioOscuro);
+}
+.error-message {
+    color: #ff6b6b;
+    background-color: #fff0f0;
+    padding: 1.5rem;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 1.6rem;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 1px solid #ff6b6b;
+}
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+    background-color: var(--primario);
+}

@@ -40,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $rutaDestino = 'img/' . $nuevoNombre;
         move_uploaded_file($_FILES['imagen']['tmp_name'], $rutaDestino);
         $nuevaImagen = $nuevoNombre;
-
     }
 
     $coleccion->updateOne(

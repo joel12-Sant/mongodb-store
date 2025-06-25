@@ -114,3 +114,23 @@ db.playeras.insertMany([
     imagen: '14.jpg'
   }
 ]);
+
+db.usuarios.insertMany([
+  {
+    nombre: 'Joel Matías',
+    correo: 'joel@example.com',
+    password: '123456',
+    direccion: 'Calle Falsa 123',
+    rol: 'cliente',
+    creado_en: new Date()
+  },
+  {
+    nombre: 'admin',
+    correo: 'admin@tienda.com',
+    password: '$2y$10$uq/g.lnNidYM92Wg/tCMJuFOvramsZhfXUis3cj5xxawVhq5RXqwC',  
+    rol: 'admin',
+    creado_en: ISODate("2025-06-25T00:00:00Z")
+  }
+]);
+
+

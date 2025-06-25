@@ -22,7 +22,7 @@ if (!$playera) {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Krub:wght@300;700&family=Staatliches&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="/css/styles.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <header class="header">
