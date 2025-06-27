@@ -2,7 +2,6 @@
 session_start();
 require 'db.php';
 
-// Verificación básica de sesión
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
     exit;
@@ -24,15 +23,14 @@ try {
     if (!$producto) {
         throw new Exception("Producto no encontrado.");
     }
-    
+
     if ($producto['cantidad'] < $cantidad) {
         throw new Exception("No hay suficiente stock. Disponible: {$producto['cantidad']}");
     }
 
     $fechaActual = new MongoDB\BSON\UTCDateTime();
-    
     $carrito = $bd->carritos->findOne(['usuario_id' => $usuarioId]);
-    
+
     if (!$carrito) {
         $bd->carritos->insertOne([
             'usuario_id' => $usuarioId,
@@ -46,47 +44,46 @@ try {
         ]);
     } else {
         $itemExistente = false;
-        
-        // Buscar si ya existe el mismo producto con la misma talla
-        foreach ($carrito['items'] as &$item) {
+        $nuevosItems = [];
+
+        foreach ($carrito['items'] as $item) {
             if ((string)$item['producto_id'] === (string)$productoId && $item['talla'] === $talla) {
-                $nuevaCantidad = $item['cantidad'] + $cantidad;
-                
-                if ($producto['cantidad'] < $nuevaCantidad) {
-                    throw new Exception("No hay suficiente stock para la cantidad solicitada.");
+                if ($producto['cantidad'] < $cantidad) {
+                    throw new Exception("No hay suficiente stock para agregar {$cantidad} unidades más. Disponible: {$producto['cantidad']}");
                 }
-                
-                $item['cantidad'] = $nuevaCantidad;
+
+                $item['cantidad'] += $cantidad;
+
                 $itemExistente = true;
-                break;
             }
+
+            $nuevosItems[] = $item;
         }
-        
+
         if (!$itemExistente) {
-            $carrito['items'][] = [
+            $nuevosItems[] = [
                 'producto_id' => $productoId,
                 'cantidad' => $cantidad,
                 'talla' => $talla,
                 'fecha_agregado' => $fechaActual
             ];
         }
-        
-        // Actualizar carrito en la base de datos
+
         $bd->carritos->updateOne(
             ['_id' => $carrito['_id']],
             ['$set' => [
-                'items' => $carrito['items'],
+                'items' => $nuevosItems,
                 'fecha_actualizacion' => $fechaActual
             ]]
         );
     }
-    
+
     // Actualizar inventario
     $bd->playeras->updateOne(
         ['_id' => $productoId],
         ['$inc' => ['cantidad' => -$cantidad]]
     );
-    
+
     // Limpiar sesión y redirigir
     unset($_SESSION['add_to_cart']);
     $_SESSION['exito'] = "¡Producto agregado al carrito!";

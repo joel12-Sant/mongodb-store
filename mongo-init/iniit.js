@@ -134,14 +134,24 @@ db.usuarios.insertMany([
 ]);
 
 db.carritos.insertOne({
-  usuario_id: ObjectId,
+  usuario_id: {
+    "$oid": "685c427bc292e30ea969e337"
+  },
   items: [
     {
-      producto_id: ObjectId,
-      cantidad: 2,
-      talla: "chica"
+      producto_id: {
+        "$oid": "685c427bc292e30ea969e329"
+      },
+      cantidad: 8,
+      talla: "Chica",
+      fecha_agregado: {
+        "$date": "2025-06-27T21:35:59.320Z"
+      }
     }
-  ]
+  ],
+  fecha_actualizacion: {
+    "$date": "2025-06-27T21:37:10.376Z"
+  }
 })
 
 

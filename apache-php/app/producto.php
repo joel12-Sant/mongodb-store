@@ -29,7 +29,6 @@ try {
         } elseif ($cantidad < 1 || $cantidad > $playera['cantidad']) {
             $error = "Sin stock";
         } else {
-            // Preparar datos para add-carrito.php
             $_SESSION['add_to_cart'] = [
                 'producto_id' => (string)$_GET['id'],
                 'talla' => $talla,
@@ -67,6 +66,7 @@ try {
 
     <nav class="navegacion">
         <a class="navegacion__enlace" href="index.php">Tienda</a>
+        <a class="navegacion__enlace" href="carrito.php">Carrito</a>
         <a class="navegacion__enlace" href="nosotros.php">Nosotros</a>
     </nav>
 
@@ -91,7 +91,7 @@ try {
                         <option value="Mediana">Mediana</option>
                         <option value="Grande">Grande</option>
                     </select>
-                    <input class="formulario__campo" type="number" name="cantidad" placeholder="Cantidad" max="<?= $playera['cantidad'] ?>">
+                    <input class="formulario__campo" type="number" name="cantidad" placeholder="Cantidad" max="<?= $playera['cantidad'] ?>" min="0">
                     <input class="formulario__submit" type="submit" value="Agregar al carrito">
                 </form>
             </div>

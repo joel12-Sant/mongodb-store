@@ -44,10 +44,14 @@ h1,h2,h3{
     color: var(--secunadario);
     font-family: var(--fuentePrincipal);
 }
+h4{
+    color: var(--secunadario);
+    font-family: var(--fuentePrincipal);
+}
 h1{font-size: 4rem;}
 h2{font-size: 3.2rem;}
 h3{font-size: 2.4rem;}
-
+h4{font-size: 2.0rem;}
 /*Header*/
 .header{
     display: flex;
@@ -334,22 +338,19 @@ h3{font-size: 2.4rem;}
     color: var(--secunadario);
 }
 /*Carrito */
-/* Contenedor principal de cada item del carrito */
 .carrito-item {
     padding: 1rem;
     margin: 1rem 0;
     display: grid;
-    grid-template-columns: 150px 1fr;
+    grid-template-columns: 150px 2fr 1fr;
     background-color: var(--primarioOscuro);
-    gap: 1rem;
+    gap: 2rem;
     align-items: center;
     border-radius: 8px;
     color: white;
-    overflow: hidden; /* Evita que el contenido se desborde */
-    min-height: 150px; /* Altura mínima en lugar de fija */
+    transition: all 0.5s ease;
+    cursor: pointer;
 }
-
-/* Contenedor de la imagen */
 .carrito-item-img {
     width: 100%;
     height: 100%;
@@ -364,20 +365,7 @@ h3{font-size: 2.4rem;}
     border-radius: 8px;
 }
 .carrito-item-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    overflow: auto; 
-    max-height: 140px; 
-}
-.carrito-item-info h3 {
-    margin: 0;
-    font-size: 2.2rem;
-    font-weight: bold;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    max-height: 100%; 
 }
 .carrito-item-info p {
     margin: 0;
@@ -393,7 +381,7 @@ h3{font-size: 2.4rem;}
     align-items: center;
     gap: 0.5rem;
 }
-@media (max-width: 768px) {
+@media (max-width: 550px) {
     .carrito-item {
         grid-template-columns: 100px 1fr;
         min-height: auto;
@@ -411,14 +399,29 @@ h3{font-size: 2.4rem;}
 .carrito-item:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
 }
-.carrito-total {
-    display: grid;
-    grid-template-columns: 2;
+.carrito-botones{
+    display: flex;
+    flex-direction: column;
+}
+.carrito-boton-compra{
+    background-color: var(--secunadario);
+    color: var(--negro);
+    font-family: var(--fuentePrincipal);
+    padding: 1rem;
+    margin: 1rem;
+}
+.carrito-boton-compra:hover{
+    background-color: var(--secundarioOscuro);
+    cursor: pointer;
+}
+.carrito-total__enlaces{
+    display: flex;
+    justify-content: space-between;
 }
 
-/*Manejo de lob botons en index.php*/
+/*Botones-index*/
 .left-buttons {
     position: absolute;
     top: 20px;
@@ -453,7 +456,6 @@ h3{font-size: 2.4rem;}
     background: var(--secundarioOscuro);
 }
 
-/* Estilos para el botón de auth (login/logout) */
 .auth-button {
     display: inline-block;
     background: var(--secunadario);
@@ -462,59 +464,31 @@ h3{font-size: 2.4rem;}
     text-decoration: none;
     font-family: var(--fuentePrincipal);
     font-weight: 500;
-    
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .auth-button:hover {
     background: var(--secundarioOscuro);
-    
 }
-
-/* Estilos para el carrito */
-.carrito-link {
-    display: flex;
-    align-items: center;
-    background: var(--secunadario);
-    font-family: var(--fuentePrincipal);
-    border-radius: 30px;
-    padding: 5px 11px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-    transition: all 0.3s ease;
-    text-decoration: none;
-    overflow: hidden;
-    width: 50px;
-    height: 50px;
-}
-
-.carrito-link:hover {
-    width: 130px;
-    background-color: var(--secundarioOscuro);
-    padding-right: 0;
-}
-
-.carrito-texto {
-    white-space: nowrap;
-    margin-left: 10px;
-    font-weight: 500;
-    opacity: 0;
-    transition: opacity 0.2s ease 0.1s;
-    flex-shrink: 0;
-    color: var(--negro);
-}
-
-.carrito-link:hover .carrito-texto {
-    opacity: 1;
-}
-
-.carrito-emoji {
-    font-size: 1.8rem;
-    width: 30px;
-    text-align: center;
-    flex-shrink: 0;
-}
-
 .header {
     position: relative;
     min-height: 80px;
+}
+/*Buscador index*/
+.search-container {
+    display: flex;
+    margin-bottom: 20px;
+}
+.search-input {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.no-results {
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+    color: #666;
 }

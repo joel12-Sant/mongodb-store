@@ -41,7 +41,7 @@ require 'db.php';
   </div>
   <table class="table table-bordered">
     <thead>
-      <tr><th>ID</th><th>Nombre</th><th>Precio</th><th>Descripción</th><th>Acciones</th></tr>
+      <tr><th>ID</th><th>Nombre</th><th>Precio</th><th>Descripción</th><th>Stock</th><th>Acciones</th></tr>
     </thead>
     <tbody>
       <?php
@@ -63,6 +63,7 @@ require 'db.php';
                   <td>{$p['nombre']}</td>
                   <td>\${$p['precio']}</td>
                   <td>{$p['descripcion']}</td>
+                  <td>{$p['cantidad']}</td>
                   <td>
                     <a href='update.php?id={$p['id']}' class='btn btn-warning btn-sm'>Editar</a>
                     <a href='delete.php?id={$p['id']}' class='btn btn-danger btn-sm'>Eliminar</a>

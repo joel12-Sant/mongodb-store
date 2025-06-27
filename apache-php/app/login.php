@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['rol'] = $usuario['rol'];
         $_SESSION['nombre'] = $usuario['nombre'];
 
-        header("Location: find.php");
+        header("Location: index.php");
         exit;
     } elseif ($usuario && $usuario['rol'] === 'cliente' && password_verify($password, $usuario['password'])) {
         $_SESSION['usuario_id'] = (string) $usuario['_id'];

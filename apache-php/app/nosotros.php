@@ -1,3 +1,6 @@
+<?php require 'db.php'; 
+session_start(); 
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,10 +18,18 @@
         <a href="index.php">
             <img class="header__logo" src="img/logo.png" alt="Logotipo" />
         </a>
+        <div class="right-buttons">
+            <?php if(isset($_SESSION['usuario_id'])): ?>
+                <a href="logout.php" class="auth-button">Cerrar Sesión</a>
+            <?php else: ?>
+                <a href="login.php" class="auth-button">Iniciar Sesión</a>
+            <?php endif; ?>
+        </div>
     </header>
 
     <nav class="navegacion">
         <a class="navegacion__enlace" href="index.php">Tienda</a>
+        <a class="navegacion__enlace" href="carrito.php">Carrito</a>
         <a class="navegacion__enlace navegacion__enlace--activo" href="nosotros.php">Nosotros</a>
     </nav>
 

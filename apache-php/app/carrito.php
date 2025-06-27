@@ -25,6 +25,7 @@ try {
             $total += $subtotal;
             
             $itemsCarrito[] = [
+                'producto_id' => $producto['_id'],
                 'producto' => $producto,
                 'cantidad' => $item['cantidad'],
                 'talla' => $item['talla'],
@@ -52,13 +53,22 @@ try {
 </head>
 <body>
     <header class="header">
-        <a href="index.php">
-            <img class="header__logo" src="img/logo.png" alt="Logotipo">
+        <a href="index.php" style="display: block; text-align: center;">
+            <img class="header__logo" src="img/logo.png" alt="Logotipo" />
         </a>
+        
+        <div class="right-buttons">
+            <?php if(isset($_SESSION['usuario_id'])): ?>
+                <a href="logout.php" class="auth-button">Cerrar Sesión</a>
+            <?php else: ?>
+                <a href="login.php" class="auth-button">Iniciar Sesión</a>
+            <?php endif; ?>
+        </div>
     </header>
 
     <nav class="navegacion">
         <a class="navegacion__enlace" href="index.php">Tienda</a>
+        <a class="navegacion__enlace navegacion__enlace--activo" href="carrito.php">Carrito</a>
         <a class="navegacion__enlace" href="nosotros.php">Nosotros</a>
     </nav>
 
@@ -71,39 +81,41 @@ try {
         <?php else: ?>
             <div class="carrito-items">
                 <?php foreach ($itemsCarrito as $item): ?>
-                    <div class="carrito-item">
-                        <img class="carrito-item-img" src="img/<?php echo htmlspecialchars($item['producto']['imagen']); ?>" alt="<?php echo htmlspecialchars($item['producto']['nombre']); ?>">
-                        <div class="carrito-item-info">
-                            <h3><?php echo htmlspecialchars($item['producto']['nombre']); ?></h3>
-                            <p>Talla: <?php echo htmlspecialchars($item['talla']); ?></p>
-                            <p>Descripción: <?php echo htmlspecialchars($item['producto']['descripcion']); ?></p>
-                            <p>Cantidad: <?php echo $item['cantidad']; ?></p>
-                            <p>Precio unitario: $<?php echo number_format($item['producto']['precio'], 2); ?></p>
-                            <p>Subtotal: $<?php echo number_format($item['subtotal'], 2); ?></p>
-                            
-                            <div class="carrito-botones">
-                                <form action="procesar_compra.php" method="post" style="display: inline;">
-                                    <input type="hidden" name="item_id" value="<?php echo $item['item_id']; ?>">
-                                    <button type="submit" class="boton">Comprar Ahora</button>
-                                </form>
-                                
-                                <form action="delete-carrito.php" method="post" style="display: inline;">
-                                    <input type="hidden" name="item_id" value="<?php echo $item['item_id']; ?>">
-                                    <input type="hidden" name="producto_id" value="<?php echo (string)$item['producto']['_id']; ?>">
-                                    <input type="hidden" name="cantidad" value="<?php echo $item['cantidad']; ?>">
-                                    <input type="hidden" name="talla" value="<?php echo $item['talla']; ?>">
-                                    <button type="submit" class="boton secundario">Quitar del Carrito</button>
-                                </form>
+                    <a href="producto.php?id=<?= htmlspecialchars($item['producto_id']) ?>">
+                        <div class="carrito-item">
+                            <img class="carrito-item-img" src="img/<?php echo htmlspecialchars($item['producto']['imagen']); ?>" alt="<?php echo htmlspecialchars($item['producto']['nombre']); ?>">
+                            <div class="carrito-item-info">
+                                <h4><?php echo htmlspecialchars($item['producto']['nombre']); ?></h4>
+                                <p>Talla: <?php echo htmlspecialchars($item['talla']); ?></p>
+                                <p>Cantidad: <?php echo $item['cantidad']; ?></p>
+                                <p>Precio unitario: $<?php echo number_format($item['producto']['precio'], 2); ?></p>
+                                <p>Subtotal: $<?php echo number_format($item['subtotal'], 2); ?></p>
                             </div>
+                            <div class="carrito-botones">
+                                    <form action="procesar_compra.php" method="post">
+                                        <input type="hidden" name="item_id" value="<?php echo $item['item_id']; ?>">
+                                        <button type="submit" class="carrito-boton-compra">Comprar Ahora</button>
+                                    </form>
+                                    
+                                    <form action="delete-carrito.php" method="post">
+                                        <input type="hidden" name="item_id" value="<?php echo $item['item_id']; ?>">
+                                        <input type="hidden" name="producto_id" value="<?php echo (string)$item['producto']['_id']; ?>">
+                                        <input type="hidden" name="cantidad" value="<?php echo $item['cantidad']; ?>">
+                                        <input type="hidden" name="talla" value="<?php echo $item['talla']; ?>">
+                                        <button type="submit" class="carrito-boton-compra">Quitar del Carrito</button>
+                                    </form>
+                                </div>
                         </div>
-                    </div>
+                    </a>
                 <?php endforeach; ?>
             </div>
             
             <div class="carrito-total">
                 <h3>Total: $<?php echo number_format($total, 2); ?></h3>
-                <a href="checkout.php" class="boton">Proceder al Pago</a>
-                <a href="index.php" class="boton secundario">Seguir Comprando</a>
+                <div class="carrito-total__enlaces">
+                    <a href="checkout.php" class="carrito-boton-compra">Proceder al Pago</a>
+                    <a href="index.php" class="carrito-boton-compra">Seguir Comprando</a>
+                </div>
             </div>
         <?php endif; ?>
     </main>
