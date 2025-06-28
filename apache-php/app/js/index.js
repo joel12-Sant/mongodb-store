@@ -33,3 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+function confirmarEliminacion() {
+    if (confirm("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.")) {
+        document.getElementById("formEliminarCuenta").submit();
+    }
+}

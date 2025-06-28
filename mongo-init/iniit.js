@@ -117,8 +117,8 @@ db.playeras.insertMany([
 
 db.usuarios.insertMany([
   {
-    nombre: 'Joel Matías',
-    correo: 'joel@example.com',
+    nombre: 'juan miguel',
+    correo: 'juan@example.com',
     password: '123456',
     direccion: 'Calle Falsa 123',
     rol: 'cliente',

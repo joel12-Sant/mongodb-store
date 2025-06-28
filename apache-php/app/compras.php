@@ -53,7 +53,9 @@ try {
     </header>
 
     <nav class="navegacion">
-        <a class="navegacion__enlace" href="mi-perfil.php">Mi Perfil</a>
+        <?php if (isset($_SESSION['usuario_id'])): ?>
+            <a class="navegacion__enlace" href="mi-perfil.php">Mi Perfil</a>
+        <?php endif; ?>
         <a class="navegacion__enlace" href="index.php">Tienda</a>
         <a class="navegacion__enlace" href="carrito.php">Carrito</a>
         <a class="navegacion__enlace" href="nosotros.php">Nosotros</a>

@@ -34,6 +34,7 @@ try {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Staatliches&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/css/styles.css?v=<?php echo time(); ?>">
+    <script src="js/index.js"> </script>
 </head>
 <body>
     <header class="header">
@@ -57,7 +58,9 @@ try {
     </header>
 
     <nav class="navegacion">
-        <a class="navegacion__enlace navegacion__enlace--activo" href="compras.php">Mi Perfil</a>
+        <?php if (isset($_SESSION['usuario_id'])): ?>
+            <a class="navegacion__enlace navegacion__enlace--activo" href="mi-perfil.php">Mi Perfil</a>
+        <?php endif; ?>
         <a class="navegacion__enlace" href="index.php">Tienda</a>
         <a class="navegacion__enlace" href="carrito.php">Carrito</a>
         <a class="navegacion__enlace" href="nosotros.php">Nosotros</a>
@@ -105,5 +108,6 @@ try {
     <footer class="footer">
         <p class="footer__texto">FrontEnd Store - Todos los derechos reservado 2024.</p>
     </footer>
+    <form id="formEliminarCuenta" action="delete-cuenta.php" method="post" style="display: none;"></form>
 </body>
 </html>
