@@ -28,6 +28,7 @@ session_start();
     </header>
 
     <nav class="navegacion">
+        <a class="navegacion__enlace" href="mi-perfil.php">Mi Perfil</a>
         <a class="navegacion__enlace" href="index.php">Tienda</a>
         <a class="navegacion__enlace" href="carrito.php">Carrito</a>
         <a class="navegacion__enlace navegacion__enlace--activo" href="nosotros.php">Nosotros</a>

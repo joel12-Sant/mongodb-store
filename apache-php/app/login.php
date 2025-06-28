@@ -56,16 +56,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="usuario">Email</label>
                 <input type="email" id="correo" name="correo" required>
             </div>
-            
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            
             <button type="submit" class="login-button">Log in</button>
-
             <a href="s"></a>
-
             <p style="text-align: center; margin-top: 10px;">
             ¿Aun no eres usuario? <a href="sign-in.php" class="form-enlace">Registrate aqui</a>
             </p>

@@ -6,15 +6,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     searchInput.addEventListener('input', function() {
         const searchTerm = this.value.toLowerCase();
-        const hasSearch = searchTerm.length > 0; // ¿Hay texto en el buscador?
+        const hasSearch = searchTerm.length > 0; 
         let hasResults = false;
         
-        // Mostrar/ocultar gráficos basado en si hay búsqueda
         graficos.forEach(grafico => {
             grafico.style.display = hasSearch ? 'none' : 'block';
         });
         
-        // Filtrar productos
         productos.forEach(producto => {
             const productName = producto.getAttribute('data-name');
             if (productName.includes(searchTerm)) {
@@ -24,12 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 producto.style.display = 'none';
             }
         });
-        
-        // Manejar mensaje "no results"
         noResults.style.display = (hasSearch && !hasResults) ? 'block' : 'none';
     });
     
-    // Opcional: Manejar cuando se limpia el campo con el botón "X" (en algunos navegadores)
     searchInput.addEventListener('search', function() {
         if (this.value === '') {
             graficos.forEach(grafico => grafico.style.display = 'block');

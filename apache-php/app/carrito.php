@@ -16,14 +16,14 @@ try {
     } else {
         $total = 0;
         $itemsCarrito = [];
-        
+
         foreach ($carrito['items'] as $item) {
             $producto = $bd->playeras->findOne(['_id' => $item['producto_id']]);
             if (!$producto) continue;
 
             $subtotal = $producto['precio'] * $item['cantidad'];
             $total += $subtotal;
-            
+
             $itemsCarrito[] = [
                 'producto_id' => $producto['_id'],
                 'producto' => $producto,
@@ -56,7 +56,7 @@ try {
         <a href="index.php" style="display: block; text-align: center;">
             <img class="header__logo" src="img/logo.png" alt="Logotipo" />
         </a>
-        
+
         <div class="right-buttons">
             <?php if(isset($_SESSION['usuario_id'])): ?>
                 <a href="logout.php" class="auth-button">Cerrar Sesión</a>
@@ -67,6 +67,7 @@ try {
     </header>
 
     <nav class="navegacion">
+        <a class="navegacion__enlace" href="mi-perfil.php">Mi Perfil</a>
         <a class="navegacion__enlace" href="index.php">Tienda</a>
         <a class="navegacion__enlace navegacion__enlace--activo" href="carrito.php">Carrito</a>
         <a class="navegacion__enlace" href="nosotros.php">Nosotros</a>
@@ -74,7 +75,7 @@ try {
 
     <main class="contenedor">
         <h1>Tu Carrito de Compras</h1>
-        
+
         <?php if (isset($mensaje)): ?>
             <p class="carrito-vacio"><?php echo htmlspecialchars($mensaje); ?></p>
             <a href="index.php" class="boton">Seguir Comprando</a>
@@ -92,28 +93,30 @@ try {
                                 <p>Subtotal: $<?php echo number_format($item['subtotal'], 2); ?></p>
                             </div>
                             <div class="carrito-botones">
-                                    <form action="procesar_compra.php" method="post">
-                                        <input type="hidden" name="item_id" value="<?php echo $item['item_id']; ?>">
-                                        <button type="submit" class="carrito-boton-compra">Comprar Ahora</button>
-                                    </form>
-                                    
-                                    <form action="delete-carrito.php" method="post">
-                                        <input type="hidden" name="item_id" value="<?php echo $item['item_id']; ?>">
-                                        <input type="hidden" name="producto_id" value="<?php echo (string)$item['producto']['_id']; ?>">
-                                        <input type="hidden" name="cantidad" value="<?php echo $item['cantidad']; ?>">
-                                        <input type="hidden" name="talla" value="<?php echo $item['talla']; ?>">
-                                        <button type="submit" class="carrito-boton-compra">Quitar del Carrito</button>
-                                    </form>
-                                </div>
+                                <form action="agregar_compras.php" method="post">
+                                    <input type="hidden" name="item_id" value="<?php echo $item['item_id']; ?>">
+                                    <button type="submit" class="carrito-boton-compra">Comprar Ahora</button>
+                                </form>
+
+                                <form action="delete-carrito.php" method="post">
+                                    <input type="hidden" name="item_id" value="<?php echo $item['item_id']; ?>">
+                                    <input type="hidden" name="producto_id" value="<?php echo (string)$item['producto']['_id']; ?>">
+                                    <input type="hidden" name="cantidad" value="<?php echo $item['cantidad']; ?>">
+                                    <input type="hidden" name="talla" value="<?php echo $item['talla']; ?>">
+                                    <button type="submit" class="carrito-boton-compra">Quitar del Carrito</button>
+                                </form>
+                            </div>
                         </div>
                     </a>
                 <?php endforeach; ?>
             </div>
-            
+
             <div class="carrito-total">
                 <h3>Total: $<?php echo number_format($total, 2); ?></h3>
                 <div class="carrito-total__enlaces">
-                    <a href="checkout.php" class="carrito-boton-compra">Proceder al Pago</a>
+                    <form action="agregar_compras.php" method="post">
+                        <button type="submit" class="carrito-boton-compra">Proceder al Pago</button>
+                    </form>
                     <a href="index.php" class="carrito-boton-compra">Seguir Comprando</a>
                 </div>
             </div>

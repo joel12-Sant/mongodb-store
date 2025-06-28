@@ -154,4 +154,22 @@ db.carritos.insertOne({
   }
 })
 
-
+db.compras.insertOne({
+  usuario_id: ObjectId("..."),        
+  productos: [
+    {
+      playera_id: ObjectId("..."), 
+      talla: "M",
+      cantidad: 2,
+      precio_unitario: 249.99
+    },
+    {
+      playera_id: ObjectId("..."),
+      talla: "L",
+      cantidad: 1,
+      precio_unitario: 249.99
+    }
+  ],
+  total: 749.97,
+  fecha: ISODate("2025-06-28T18:00:00Z")
+})
