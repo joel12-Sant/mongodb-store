@@ -159,13 +159,13 @@ db.compras.insertOne({
   productos: [
     {
       playera_id: ObjectId("..."), 
-      talla: "M",
+      talla: "mediana",
       cantidad: 2,
       precio_unitario: 249.99
     },
     {
       playera_id: ObjectId("..."),
-      talla: "L",
+      talla: "grande",
       cantidad: 1,
       precio_unitario: 249.99
     }
