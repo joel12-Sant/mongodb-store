@@ -1,65 +1,103 @@
+# 🛍️ FrontEnd Store
 
-# Tienda de Playeras - Proyecto CRUD con PHP y MongoDB
-
-Este proyecto es una tienda en línea simple que permite gestionar playeras (camisetas) a través de un panel de administración con autenticación básica. Está desarrollado usando:
-
-- PHP (sin frameworks)
-- MongoDB
-- Docker
-- HTML + CSS (con Bootstrap y estilos personalizados)
-- CRUD completo: Crear, Leer, Actualizar y Eliminar productos
+**FrontEnd Store** es una tienda virtual creada como un proyecto escolar con fines académicos y prácticos. El objetivo es ofrecer una experiencia de compra real, enfocada en desarrolladores y estudiantes de programación. Esta aplicación demuestra el uso conjunto de tecnologías frontend y backend modernas, incluyendo PHP, MongoDB, y Docker.
 
 ---
 
+## 🚀 Tecnologías utilizadas
 
-## ¿Cómo funciona?
-
-1. **Inicio de sesión**
-   - Solo usuarios autenticados pueden acceder a find.php, create.php, update.php y delete.php.
-   - Usuario y contraseña están definidos directamente en login.php:
-     - Usuario: admin
-     - Contraseña: 1234 (usando password_hash y password_verify)
-
-2. **Subida de imágenes**
-   - Al agregar una playera, la imagen se guarda en la carpeta /img/ con un nombre numérico automático (1.jpg, 2.jpg...).
-   - Al eliminar una playera, su imagen también se borra del servidor.
-
-3. **Base de datos MongoDB**
-   - Cada playera se guarda como un documento en la colección.
-   - Campos: id, nombre, precio, cantidad, descripción, imagen.
-
-4. **Protección por sesión**
-   - Los archivos de administración inician con una verificación de sesión.
-   - Si no hay sesión activa, se redirige a login.php.
+- **PHP 8.1 (Apache)**
+- **MongoDB**
+- **phpMyAdmin**
+- **Docker + Docker Compose**
+- **HTML5 + CSS3**
 
 ---
 
-## Requisitos
+## 📦 ¿Qué incluye este proyecto?
 
-- solo se requiere tener instaldo docker en su dispositivo y descargar el zip de este repositorio o clonarlo en su dispositivo
-
----
-
-## Uso
-
-1. Ejecuta el comando: ```docker compose up --build ```
-2. Abre en navegador: http://localhost:8080 para acceder al apartado de tienda
-3. Para acceder al panel de administracion, ve a http://localhost:8080/find.php
-4. Logeate con:
-   - Usuario: admin
-   - Contraseña: 1234
+- Autenticación de usuarios
+- Carrito de compras funcional
+- Gestión de productos (admin)
+- Historial de compras
+- Manejo de sesiones
+- Persistencia con base de datos MongoDB
+- Interfaz moderna responsiva
+- CRUD con Docker y volúmenes para persistencia
 
 ---
 
-## Seguridad
+## ⚙️ Instalación rápida
+1.- Clona el repositorio o descarga el .zip desde GitHub:
 
-- Contraseñas con password_hash y password_verify
-- Archivos de administración protegidos por sesión
-- Control de tipo de archivo al subir imágenes
+```bash
+git clone https://github.com/joel12-Sant/mongodb-store.git
+cd mongodb-store
+```
+
+2.- Construye y levanta los contenedores:
+```bash
+docker compose up --build
+```
+3.- Accede a tu aplicación:
+
+- FrontEnd Store: http://localhost:8080
 
 ---
 
-## Autor
+## 🐬 Servicios Docker
+### MongoDB
+- Imagen: Mongo
 
-Joel Matías y Alejandro Martinez Galeano
-Proyecto escolar de desarrollo web con PHP + MongoDB
+- Puerto: 27017
+
+- Volumen persistente: mongo-init/
+
+### Apache + PHP
+- Imagen personalizada desde php:8.1-apache
+
+- Extensiones: pdo_mysql, mongodb
+
+- Puerto: 8080 -> 80
+
+- Código fuente montado en /var/www/html
+
+---
+
+## ✅ Funcionalidades
+- Registro e inicio de sesión de usuarios
+
+- Roles (admin y cliente)
+
+- Agregar y quitar productos del carrito
+
+- Comprar productos (individual o todos)
+
+- Historial de compras con detalle
+
+- Eliminación de cuenta
+
+- Administración de productos para admin
+
+---
+
+## 🔒 Seguridad
+- Sanitización y validación de entradas
+
+- Hashing de contraseñas con password_hash
+
+- Control de acceso por sesión
+
+---
+
+## 📌 Notas
+- Este sistema fue desarrolladon tambien con MySQL en un fase posterior, si deseas acceder ve a: https://github.com/joel12-Sant/Mysql-store
+
+---
+
+## 🧑‍💻 Autor
+Desarrollado por Joel Matias Santiago & Alejandro Martinez Galeano.
+
+---
+## 📄 Licencia
+Este proyecto es de uso libre con fines educativos.
