@@ -95,10 +95,11 @@ try {
                                 <p>Subtotal: $<?php echo number_format($item['subtotal'], 2); ?></p>
                             </div>
                             <div class="carrito-botones">
-                                <form action="agregar_compras.php" method="post">
-                                    <input type="hidden" name="item_id" value="<?php echo $item['item_id']; ?>">
-                                    <button type="submit" class="carrito-boton-compra">Comprar Ahora</button>
-                                </form>
+                                <form action="create_checkout.php" method="post">
+    <input type="hidden" name="item_id" value="<?php echo $item['item_id']; ?>">
+    <button type="submit" class="carrito-boton-compra">Comprar Ahora</button>
+</form>
+
 
                                 <form action="delete-carrito.php" method="post">
                                     <input type="hidden" name="item_id" value="<?php echo $item['item_id']; ?>">
@@ -116,9 +117,10 @@ try {
             <div class="carrito-total">
                 <h3>Total: $<?php echo number_format($total, 2); ?></h3>
                 <div class="carrito-total__enlaces">
-                    <form action="agregar_compras.php" method="post">
-                        <button type="submit" class="carrito-boton-compra">Proceder al Pago</button>
-                    </form>
+                    <form action="create_checkout.php" method="post">
+    <button type="submit" class="carrito-boton-compra">Proceder al Pago</button>
+</form>
+
                     <a href="index.php" class="carrito-boton-compra">Seguir Comprando</a>
                 </div>
             </div>
