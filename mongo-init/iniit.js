@@ -1,5 +1,7 @@
+// Seleccionar la base de datos
 db = db.getSiblingDB('tienda');
 
+// Semilla de playeras
 db.playeras.insertMany([
   {
     id: 1,
@@ -115,6 +117,7 @@ db.playeras.insertMany([
   }
 ]);
 
+// Semilla de usuarios
 db.usuarios.insertMany([
   {
     nombre: 'juan miguel',
@@ -127,49 +130,43 @@ db.usuarios.insertMany([
   {
     nombre: 'admin',
     correo: 'admin@tienda.com',
-    password: '$2y$10$uq/g.lnNidYM92Wg/tCMJuFOvramsZhfXUis3cj5xxawVhq5RXqwC',  
+    password: '$2y$10$uq/g.lnNidYM92Wg/tCMJuFOvramsZhfXUis3cj5xxawVhq5RXqwC',
     rol: 'admin',
-    creado_en: ISODate("2025-06-25T00:00:00Z")
+    creado_en: new Date('2025-06-25T00:00:00Z')
   }
 ]);
 
+// Semilla de carrito (ajusta los ObjectId por los reales)
 db.carritos.insertOne({
-  usuario_id: {
-    "$oid": "685c427bc292e30ea969e337"
-  },
+  usuario_id: ObjectId('685c427bc292e30ea969e337'),
   items: [
     {
-      producto_id: {
-        "$oid": "685c427bc292e30ea969e329"
-      },
+      producto_id: ObjectId('685c427bc292e30ea969e329'),
       cantidad: 8,
-      talla: "Chica",
-      fecha_agregado: {
-        "$date": "2025-06-27T21:35:59.320Z"
-      }
+      talla: 'Chica',
+      fecha_agregado: new Date('2025-06-27T21:35:59.320Z')
     }
   ],
-  fecha_actualizacion: {
-    "$date": "2025-06-27T21:37:10.376Z"
-  }
-})
+  fecha_actualizacion: new Date('2025-06-27T21:37:10.376Z')
+});
 
+// Semilla de compras (pon IDs reales o elimina este bloque mientras)
 db.compras.insertOne({
-  usuario_id: ObjectId("..."),        
+  usuario_id: ObjectId('685c427bc292e30ea969e337'), // cambia por el usuario real
   productos: [
     {
-      playera_id: ObjectId("..."), 
-      talla: "mediana",
+      playera_id: ObjectId('685c427bc292e30ea969e329'), // cambia por la playera real
+      talla: 'mediana',
       cantidad: 2,
       precio_unitario: 249.99
     },
     {
-      playera_id: ObjectId("..."),
-      talla: "grande",
+      playera_id: ObjectId('685c427bc292e30ea969e32a'), // otro id de playera
+      talla: 'grande',
       cantidad: 1,
       precio_unitario: 249.99
     }
   ],
   total: 749.97,
-  fecha: ISODate("2025-06-28T18:00:00Z")
-})
+  fecha: new Date('2025-06-28T18:00:00Z')
+});
