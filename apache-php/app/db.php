@@ -1,7 +1,9 @@
 <?php
 require 'vendor/autoload.php';
 
-$cliente = new MongoDB\Client("mongodb://mongo:27017");
+$mongoUri = getenv('MONGO_URI') ?: 'mongodb://mongo:27017';
+
+$cliente = new MongoDB\Client($mongoUri);
 $coleccion = $cliente->tienda->playeras;
 $bd = $cliente->tienda;
 ?>
